@@ -13,29 +13,35 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import NotificationImportant from '@material-ui/icons/NotificationImportant';
 
 class ChatListComponent extends React.Component {
-    
-    userIsSender = (chat) => chat.messages[chat.messages.length - 1].sender === this.props.userEmail;
-    newChat = () => this.props.newChatBtnFn();
-    selectChat = (index) => this.props.selectChatFn(index);
 
-  render() {
+    newChat = () => {
+        this.props.newChatBtnFn();
+    };
 
-    const { classes } = this.props;
+    selectChat = (index) => {
+        console.log('Select-chat', index);
+        this.props.selectChatFn(index);
+    };
 
-    if(this.props.chats.length > 0) {
+    // userIsSender = (chat) => {
+    //     chat.messages[chat.messages.length - 1].sender === this.props.userEmail;
+    // };
+
+    render() {
+  
+      const { classes } = this.props;
+
       return(
-        <div className={classes.root}>
-            <Button variant="contained" 
-              fullWidth 
-              color='primary' 
-              onClick={this.newChat} 
-              className={classes.newChatBtn}>
-                New Message
-            </Button>
+        // "customProp" coming from dashboard
+        // <>Chat Board props: {this.props.customProp}</>
+
+        <main className={classes.main}>
+            <Button varient='contained' fullWidth color='primary' className={classes.newChatBtn} onClick={this.newChat}></Button>
             <List>
-              {
+            {
                 this.props.chats.map((_chat, _index) => {
                   return (
+                    // "selectedChatIndex", "userEmail" coming from dashboard, "filter" check array of user
                     <div key={_index}>
                       <ListItem onClick={() => this.selectChat(_index)} 
                         className={classes.listItem} 
@@ -48,6 +54,7 @@ class ChatListComponent extends React.Component {
                           primary={_chat.users.filter(_user => _user !== this.props.userEmail)[0]}
                           secondary={
                             <React.Fragment>
+                                {/* atleast "30" char msg */}
                               <Typography component='span'
                                 color='textPrimary'>
                                   {_chat.messages[_chat.messages.length - 1].message.substring(0, 30) + ' ...'}
@@ -66,24 +73,10 @@ class ChatListComponent extends React.Component {
                 })
               }
             </List>
-        </div>
-      );
-    } else {
-      return(
-        <div className={classes.root}>
-          <Button variant="contained" 
-            fullWidth 
-            color='primary' 
-            onClick={this.newChat} 
-            className={classes.newChatBtn}>
-              New Message
-          </Button>
-          <List></List>
-        </div>
-      );
+        </main>
+      )
+  
     }
   }
- 
-}
-
-export default withStyles(styles)(ChatListComponent);
+  
+  export default withStyles(styles)(ChatListComponent);
