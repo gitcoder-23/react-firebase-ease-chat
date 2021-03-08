@@ -21,7 +21,7 @@ userTyping = (e) => e.keyCode === 13 ? this.submitMessage() : this.setState({ ch
 // "/\s/g" "s" finds all space char & "g" is global
 messageValid = (txt) => txt && txt.replace(/\s/g, '').length;
 
-userClickedInput = () => console.log('Clicked Input');
+userClickedInput = () => this.props.messageReadFn();
 
 submitMessage = () => {
     console.log('submit Message');

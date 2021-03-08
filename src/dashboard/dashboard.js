@@ -89,7 +89,7 @@ class DashboardComponent extends React.Component {
   messageRead = () => {
     const chatIndex = this.state.selectedChat;
     const docKey = this.buildDocKey(this.state.chats[chatIndex].users.filter(_usr => _usr !== this.state.email)[0]);
-    if(this.clickedMessageWhereNotSender(chatIndex)) {
+    if(this.clickedChatWhereNotSender(chatIndex)) {
       firebase
         .firestore()
         .collection('chats')
@@ -99,8 +99,8 @@ class DashboardComponent extends React.Component {
       console.log('Clicked message where the user was the sender');
     }
   }
-
-  clickedMessageWhereNotSender = (chatIndex) => this.state.chats[chatIndex].messages[this.state.chats[chatIndex].messages.length - 1].sender !== this.state.email;
+//  "-1" mean very last message
+  clickedChatWhereNotSender = (chatIndex) => this.state.chats[chatIndex].messages[this.state.chats[chatIndex].messages.length - 1].sender !== this.state.email;
 
 //   componentWillMount = componentDidMount
 //  after login
@@ -146,7 +146,7 @@ componentDidMount = () => {
             </ChatViewComponent>
           }
           { 
-            this.state.selectedChat !== null && !this.state.newChatFormVisible ? <ChatTextBoxComponent userClickedInputFn={this.messageRead} submitMessageFn={this.submitMessage}></ChatTextBoxComponent> : null 
+            this.state.selectedChat !== null && !this.state.newChatFormVisible ? <ChatTextBoxComponent messageReadFn={this.messageRead} submitMessageFn={this.submitMessage}></ChatTextBoxComponent> : null 
           }
           {/* {
             this.state.newChatFormVisible ? <NewChatComponent goToChatFn={this.goToChat} newChatSubmitFn={this.newChatSubmit}></NewChatComponent> : null

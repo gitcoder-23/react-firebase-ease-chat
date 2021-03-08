@@ -15,6 +15,7 @@ import NotificationImportant from '@material-ui/icons/NotificationImportant';
 class ChatListComponent extends React.Component {
     
     userIsSender = (chat) => chat.messages[chat.messages.length - 1].sender === this.props.userEmail;
+    
     newChat = () => this.props.newChatBtnFn();
     //  "selectChatFn" coming from dashboard
     selectChat = (index) => this.props.selectChatFn(index);
