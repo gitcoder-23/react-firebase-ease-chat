@@ -145,7 +145,7 @@ class SignupComponent extends React.Component {
                    </Typography> : null
                 }
                 <Typography component='h5' variant='h6' className={classes.hasAccountHeader}>Already Have An Account?</Typography>
-                <Link className={classes.logInLink} to='/login'>Log In!</Link>
+                <Link className={classes.logInLink} to='/'>Log In!</Link>
             </Paper>
            </main>
         )
